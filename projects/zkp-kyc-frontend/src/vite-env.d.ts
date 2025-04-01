@@ -1,6 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
+  readonly VITE_ALGO_DID_APPID: number
+
   readonly VITE_ENVIRONMENT: string
 
   readonly VITE_ALGOD_TOKEN: string

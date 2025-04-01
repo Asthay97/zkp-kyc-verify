@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
-import { SupportedWallet, WalletId, WalletManager, WalletProvider } from '@txnlab/use-wallet-react'
-import { SnackbarProvider } from 'notistack'
-import Home from './Home'
-import Prover from './Prover'
-import Verifier from './Verifier'
-import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
+import {
+  SupportedWallet,
+  WalletId,
+  WalletManager,
+  WalletProvider,
+} from "@txnlab/use-wallet-react";
+import { SnackbarProvider } from "notistack";
+import { Home } from "./Home";
+import {
+  getAlgodConfigFromViteEnvironment,
+  getKmdConfigFromViteEnvironment,
+} from "./utils/network/getAlgoClientConfigs";
+import { useState } from "react";
 
-let supportedWallets: SupportedWallet[]
-if (import.meta.env.VITE_ALGOD_NETWORK === 'localnet') {
-  const kmdConfig = getKmdConfigFromViteEnvironment()
+let supportedWallets: SupportedWallet[];
+if (import.meta.env.VITE_ALGOD_NETWORK === "localnet") {
+  const kmdConfig = getKmdConfigFromViteEnvironment();
   supportedWallets = [
     {
       id: WalletId.KMD,
@@ -18,19 +24,17 @@ if (import.meta.env.VITE_ALGOD_NETWORK === 'localnet') {
         port: String(kmdConfig.port),
       },
     },
-  ]
+  ];
 } else {
   supportedWallets = [
     { id: WalletId.DEFLY },
     { id: WalletId.PERA },
     { id: WalletId.EXODUS },
-  ]
+  ];
 }
 
 export default function App() {
-  const [activeRole, setActiveRole] = useState<'issuer' | 'prover' | 'verifier'>('issuer')
-
-  const algodConfig = getAlgodConfigFromViteEnvironment()
+  const algodConfig = getAlgodConfigFromViteEnvironment();
   const walletManager = new WalletManager({
     wallets: supportedWallets,
     defaultNetwork: algodConfig.network,
@@ -46,7 +50,11 @@ export default function App() {
     options: {
       resetNetwork: true,
     },
-  })
+  });
+
+  const [activeRole, setActiveRole] = useState<
+    "issuer" | "prover" | "verifier"
+  >("issuer");
 
   return (
     <SnackbarProvider maxSnack={3}>
@@ -57,42 +65,43 @@ export default function App() {
             <div className="flex space-x-6 rounded-full bg-gray-700 p-2">
               <button
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  activeRole === 'issuer' ? 'bg-white text-black font-bold shadow-md' : 'hover:bg-gray-600'
+                  activeRole === "issuer"
+                    ? "bg-white text-black font-bold shadow-md"
+                    : "hover:bg-gray-600"
                 }`}
-                onClick={() => setActiveRole('issuer')}
+                onClick={() => setActiveRole("issuer")}
               >
                 Issuer
               </button>
               <button
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  activeRole === 'prover' ? 'bg-white text-black font-bold shadow-md' : 'hover:bg-gray-600'
+                  activeRole === "prover"
+                    ? "bg-white text-black font-bold shadow-md"
+                    : "hover:bg-gray-600"
                 }`}
-                onClick={() => setActiveRole('prover')}
+                onClick={() => setActiveRole("prover")}
               >
                 Prover
               </button>
               <button
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                  activeRole === 'verifier' ? 'bg-white text-black font-bold shadow-md' : 'hover:bg-gray-600'
+                  activeRole === "verifier"
+                    ? "bg-white text-black font-bold shadow-md"
+                    : "hover:bg-gray-600"
                 }`}
-                onClick={() => setActiveRole('verifier')}
+                onClick={() => setActiveRole("verifier")}
               >
                 Verifier
               </button>
             </div>
           </nav>
 
-          {/* Role-based Rendering */}
-          {activeRole === 'issuer' && <Home />}
-          {activeRole === 'prover' && <Prover />}
-          {activeRole === 'verifier' && <Verifier />}
+          <Home activeRole={activeRole} />
         </div>
       </WalletProvider>
     </SnackbarProvider>
-  )
-
+  );
 }
-
 
 // import { SupportedWallet, WalletId, WalletManager, WalletProvider } from '@txnlab/use-wallet-react'
 // import { SnackbarProvider } from 'notistack'

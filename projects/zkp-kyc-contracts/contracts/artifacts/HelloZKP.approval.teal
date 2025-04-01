@@ -34,7 +34,7 @@ switch *call_NoOp *NOT_IMPLEMENTED *NOT_IMPLEMENTED *NOT_IMPLEMENTED *NOT_IMPLEM
 getSum:
 	proto 2 1
 
-	// contracts/HelloZKP.algo.ts:12
+	// contracts\HelloZKP.algo.ts:12
 	// return a + b;
 	frame_dig -1 // a: uint64
 	frame_dig -2 // b: uint64
@@ -51,7 +51,7 @@ getSum:
 getDifference:
 	proto 2 1
 
-	// contracts/HelloZKP.algo.ts:23
+	// contracts\HelloZKP.algo.ts:23
 	// return a >= b ? a - b : b - a;
 	frame_dig -1 // a: uint64
 	frame_dig -2 // b: uint64
@@ -111,7 +111,7 @@ doMath:
 	pushbytes 0x
 
 	// *if0_condition
-	// contracts/HelloZKP.algo.ts:38
+	// contracts\HelloZKP.algo.ts:38
 	// operation === 'sum'
 	frame_dig -3 // operation: string
 	pushbytes 0x73756d // "sum"
@@ -119,7 +119,7 @@ doMath:
 	bz *if0_elseif1_condition
 
 	// *if0_consequent
-	// contracts/HelloZKP.algo.ts:39
+	// contracts\HelloZKP.algo.ts:39
 	// result = this.getSum(a, b)
 	frame_dig -2 // b: uint64
 	frame_dig -1 // a: uint64
@@ -128,7 +128,7 @@ doMath:
 	b *if0_end
 
 *if0_elseif1_condition:
-	// contracts/HelloZKP.algo.ts:40
+	// contracts\HelloZKP.algo.ts:40
 	// operation === 'difference'
 	frame_dig -3 // operation: string
 	pushbytes 0x646966666572656e6365 // "difference"
@@ -136,7 +136,7 @@ doMath:
 	bz *if0_else
 
 	// *if0_elseif1_consequent
-	// contracts/HelloZKP.algo.ts:41
+	// contracts\HelloZKP.algo.ts:41
 	// result = this.getDifference(a, b)
 	frame_dig -2 // b: uint64
 	frame_dig -1 // a: uint64
@@ -149,7 +149,7 @@ doMath:
 	err
 
 *if0_end:
-	// contracts/HelloZKP.algo.ts:44
+	// contracts\HelloZKP.algo.ts:44
 	// return result;
 	frame_dig 0 // result: uint64
 
@@ -189,7 +189,7 @@ doMath:
 hello:
 	proto 1 1
 
-	// contracts/HelloZKP.algo.ts:55
+	// contracts\HelloZKP.algo.ts:55
 	// return 'Hello, ' + name;
 	pushbytes 0x48656c6c6f2c20 // "Hello, "
 	frame_dig -1 // name: string

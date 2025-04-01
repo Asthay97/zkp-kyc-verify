@@ -1,3 +1,1 @@
-const CreateDID = () => {}
-
-export default CreateDID
+export const CreateDID = () => {}

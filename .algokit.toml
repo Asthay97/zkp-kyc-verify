@@ -1,0 +1,9 @@
+[algokit]
+min_version = "v2.6.2"
+
+[project]
+type = 'workspace'
+projects_root_path = 'projects'
+
+[project.run]
+build = ['zkp-kyc-contracts', 'zkp-kyc-frontend']
